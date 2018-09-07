@@ -1,0 +1,36 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<!--Copyright © 2018, Oracle and/or its affiliates. All rights reserved.
+
+The Universal Permissive License (UPL), Version 1.0
+-->
+<wsdl:definitions
+     name="WCCManager"
+     targetNamespace="http://xmlns.oracle.com/HCMLoaderService/WccManager/WCCManager"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://xmlns.oracle.com/HCMLoaderService/WccManager/WCCManager"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:ns1="http://www.oracle.com/UCM"
+    >
+    <plnk:partnerLinkType name="WCCManager">
+        <plnk:role name="WCCManagerProvider" portType="client:WCCManager"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="urn:GenericSoap" location="GenericSoapPort.wsdl"/>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/HCMLoaderService/WccManager/WCCManager"
+                 schemaLocation="../Schemas/WCCManager.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="WCCManagerResponseMessage">
+        <wsdl:part name="payload" element="client:processResponse"/>
+    </wsdl:message>
+    <wsdl:message name="WCCManagerRequestMessage">
+        <wsdl:part name="payload" element="ns1:GenericRequest"/>
+    </wsdl:message>
+    <wsdl:portType name="WCCManager">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:WCCManagerRequestMessage"/>
+            <wsdl:output message="client:WCCManagerResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

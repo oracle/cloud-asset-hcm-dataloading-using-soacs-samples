@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Copyright © 2018, Oracle and/or its affiliates. All rights reserved.
+
+The Universal Permissive License (UPL), Version 1.0
+-->
+<composite name="WccManager"
+           revision="1.0"
+           label="2015-12-04_11-44-05_014"
+           mode="active"
+           state="on"
+           xmlns="http://xmlns.oracle.com/sca/1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+           xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy"
+           xmlns:ui="http://xmlns.oracle.com/soa/designer/"
+           xmlns:sca-ext="http://xmlns.oracle.com/sca/1.0-ext">
+  <import namespace="http://xmlns.oracle.com/HCMLoaderService/WccManager/WCCManager" location="WSDLs/WCCManager.wsdl"
+          importType="wsdl"/>
+  <import namespace="urn:GenericSoap" location="WSDLs/GenericSoapPort.wsdl" importType="wsdl"/>
+  <import namespace="urn:GenericSoap" location="WSDLs/GenericSoapPortWrapper.wsdl" importType="wsdl"/>
+  <service name="wccmanager_client_ep" ui:wsdlLocation="WSDLs/WCCManager.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/HCMLoaderService/WccManager/WCCManager#wsdl.interface(WCCManager)"/>
+    <binding.ws port="http://xmlns.oracle.com/HCMLoaderService/WccManager/WCCManager#wsdl.endpoint(wccmanager_client_ep/WCCManager_pt)"/>
+  </service>
+  <property name="productVersion" type="xs:string" many="false">12.1.3.0.0</property>
+  <property name="compositeID" type="xs:string" many="false">cff463fb-5366-4dec-9574-dead6fd96f07</property>
+  <component name="WCCManager" version="2.0">
+    <implementation.bpel src="BPEL/WCCManager.bpel"/>
+    <componentType>
+      <service name="wccmanager_client" ui:wsdlLocation="WSDLs/WCCManager.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/HCMLoaderService/WccManager/WCCManager#wsdl.interface(WCCManager)"/>
+      </service>
+      <reference name="FAWebCenterContent" ui:wsdlLocation="WSDLs/GenericSoapPortWrapper.wsdl">
+        <interface.wsdl interface="urn:GenericSoap#wsdl.interface(GenericSoapPortType)"/>
+      </reference>
+    </componentType>
+    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
+  </component>
+  <reference name="FAWebCenterContent" ui:wsdlLocation="WSDLs/GenericSoapPort.wsdl">
+    <interface.wsdl interface="urn:GenericSoap#wsdl.interface(GenericSoapPortType)"/>
+    <binding.ws port="urn:GenericSoap#wsdl.endpoint(GenericSoapService/GenericSoapPort)"
+                location="https://@SERVER@/idcws/GenericSoapPort?wsdl" soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <wire>
+    <source.uri>wccmanager_client_ep</source.uri>
+    <target.uri>WCCManager/wccmanager_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>WCCManager/FAWebCenterContent</source.uri>
+    <target.uri>FAWebCenterContent</target.uri>
+  </wire>
+</composite>

@@ -1,0 +1,74 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--Copyright © 2018, Oracle and/or its affiliates. All rights reserved.
+
+The Universal Permissive License (UPL), Version 1.0
+-->
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="WCCManager"
+               targetNamespace="http://xmlns.oracle.com/HCMLoaderService/WccManager/WCCManager"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/HCMLoaderService/WccManager/WCCManager"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="urn:GenericSoap"
+         xmlns:ns2="http://www.oracle.com/UCM">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/HCMLoaderService/WccManager/WCCManager" location="../WSDLs/WCCManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="wccmanager_client" partnerLinkType="client:WCCManager" myRole="WCCManagerProvider"/>
+    <partnerLink name="FAWebCenterContent" partnerLinkType="ns1:FAWebCenterContent" partnerRole="GenericSoapPortType"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:WCCManagerRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:WCCManagerResponseMessage"/>
+    <variable name="UploadFile_GenericSoapOperation_InputVariable" messageType="ns1:GenericSoapOperationInput"/>
+    <variable name="UploadFile_GenericSoapOperation_OutputVariable" messageType="ns1:GenericSoapOperationOutput"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in WCCManager.wsdl) -->
+    <receive name="receiveInput" partnerLink="wccmanager_client" portType="client:WCCManager" operation="process" variable="inputVariable" createInstance="yes"/>
+    <invoke name="UploadFile" partnerLink="FAWebCenterContent"
+            portType="ns1:GenericSoapPortType" operation="GenericSoapOperation"
+            inputVariable="UploadFile_GenericSoapOperation_InputVariable"
+            outputVariable="UploadFile_GenericSoapOperation_OutputVariable" bpelx:invokeAsDetail="no"/>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="wccmanager_client" portType="client:WCCManager" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

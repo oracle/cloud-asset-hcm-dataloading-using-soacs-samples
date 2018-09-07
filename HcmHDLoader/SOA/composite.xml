@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Copyright © 2018, Oracle and/or its affiliates. All rights reserved.
+
+The Universal Permissive License (UPL), Version 1.0
+-->
+<composite name="HcmHDLoader"
+           revision="1.0"
+           label="2015-10-17_08-51-32_371"
+           mode="active"
+           state="on"
+           xmlns="http://xmlns.oracle.com/sca/1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+           xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy"
+           xmlns:ui="http://xmlns.oracle.com/soa/designer/"
+           xmlns:sca-ext="http://xmlns.oracle.com/sca/1.0-ext">
+  <import namespace="http://xmlns.oracle.com/HCMLoaderService/HcmHDLoader/HDLComposite"
+          location="WSDLs/HDLComposite.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/apps/hcm/common/dataLoader/core/dataLoaderIntegrationService/"
+          location="WSDLs/HCMDataLoader.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/apps/hcm/common/dataLoader/core/dataLoaderIntegrationService/"
+          location="WSDLs/HCMDataLoaderWrapper.wsdl" importType="wsdl"/>
+  <service name="hdlcomposite_client_ep" ui:wsdlLocation="WSDLs/HDLComposite.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/HCMLoaderService/HcmHDLoader/HDLComposite#wsdl.interface(HDLComposite)"/>
+    <binding.ws port="http://xmlns.oracle.com/HCMLoaderService/HcmHDLoader/HDLComposite#wsdl.endpoint(hdlcomposite_client_ep/HDLComposite_pt)"/>
+  </service>
+  <property name="productVersion" type="xs:string" many="false">12.1.3.0.0</property>
+  <property name="compositeID" type="xs:string" many="false">3331007e-3579-458d-8a63-016043fb921e</property>
+  <component name="HDLComposite" version="2.0">
+    <implementation.bpel src="BPEL/HDLComposite.bpel"/>
+    <componentType>
+      <service name="hdlcomposite_client" ui:wsdlLocation="WSDLs/HDLComposite.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/HCMLoaderService/HcmHDLoader/HDLComposite#wsdl.interface(HDLComposite)"/>
+      </service>
+      <reference name="HcmHdlSvc" ui:wsdlLocation="WSDLs/HCMDataLoaderWrapper.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/apps/hcm/common/dataLoader/core/dataLoaderIntegrationService/#wsdl.interface(HCMDataLoader)"
+                        callbackInterface="http://xmlns.oracle.com/apps/hcm/common/dataLoader/core/dataLoaderIntegrationService/#wsdl.interface(HCMDataLoader)"/>
+      </reference>
+    </componentType>
+    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
+  </component>
+  <reference name="HcmHdlSvc" ui:wsdlLocation="WSDLs/HCMDataLoader.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/apps/hcm/common/dataLoader/core/dataLoaderIntegrationService/#wsdl.interface(HCMDataLoader)"
+                    callbackInterface="http://xmlns.oracle.com/apps/hcm/common/dataLoader/core/dataLoaderIntegrationService/#wsdl.interface(HCMDataLoader)"/>
+    <binding.ws port="http://xmlns.oracle.com/apps/hcm/common/dataLoader/core/dataLoaderIntegrationService/#wsdl.endpoint(HCMDataLoader/HCMDataLoaderSoapHttpPort)"
+                location="https://@SERVER@/hcmCommonDataLoader/HCMDataLoader?wsdl"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+    <callback>
+      <binding.ws port="http://xmlns.oracle.com/apps/hcm/common/dataLoader/core/dataLoaderIntegrationService/#wsdl.endpoint(HCMDataLoader/HCMDataLoader_pt)"
+                  location="https://@SERVER@/hcmCommonDataLoader/HCMDataLoader?wsdl"/>
+    </callback>
+  </reference>
+  <wire>
+    <source.uri>hdlcomposite_client_ep</source.uri>
+    <target.uri>HDLComposite/hdlcomposite_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>HDLComposite/HcmHdlSvc</source.uri>
+    <target.uri>HcmHdlSvc</target.uri>
+  </wire>
+</composite>

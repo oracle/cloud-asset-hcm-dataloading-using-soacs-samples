@@ -1,0 +1,40 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<!--Copyright © 2018, Oracle and/or its affiliates. All rights reserved.
+
+The Universal Permissive License (UPL), Version 1.0
+-->
+<schema elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/apps/hcm/common/dataLoader/core/dataLoaderIntegrationService/types/"
+     xmlns:ns0="http://xmlns.oracle.com/adf/svc/errors/" xmlns:tns="http://xmlns.oracle.com/apps/hcm/common/dataLoader/core/dataLoaderIntegrationService/types/"
+     xmlns="http://www.w3.org/2001/XMLSchema">
+    <import namespace="http://xmlns.oracle.com/adf/svc/errors/" schemaLocation="ServiceException.xsd"/>
+    <element name="importAndLoadData">
+        <complexType>
+            <sequence>
+                <element name="ContentId" type="string"/>
+                <element name="Parameters" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="importAndLoadDataResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="importAndLoadDataAsync">
+        <complexType>
+            <sequence>
+                <element name="ContentId" type="string"/>
+                <element name="Parameters" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="importAndLoadDataAsyncResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+</schema>

@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!--Copyright © 2018, Oracle and/or its affiliates. All rights reserved.
+
+The Universal Permissive License (UPL), Version 1.0
+-->
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='HcmHdlSvc']</loc>
+      <line>39</line>
+      <col>74</col>
+      <file>C:\JDeveloper\mywork\HCMLoaderService\HcmHDLoader\SOA\composite.xml</file>
+      <name>C:\JDeveloper\mywork\HCMLoaderService\HcmHDLoader\SOA\composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "HcmHdlSvc":"{http://xmlns.oracle.com/apps/hcm/common/dataLoader/core/dataLoaderIntegrationService/}HCMDataLoaderSoapHttpPort" in WSDL Manager</msg>
+   </Fault>
+</Faults>
