@@ -95,3 +95,4 @@ Modify the SOA Config plan files for the 2 composites and update the location ur
 * Refer to the solution document at below location for the overall solution
   - https://docs.oracle.com/en/solutions/data-load-extract-hcm-cloud/index.html
 
+
