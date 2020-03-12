@@ -25,7 +25,7 @@ HCM Extract is an outbound integration tool that lets you select HCM data eleme
 
 Oracle Fusion HCM provides the above tools with comprehensive user interfaces for initiating data uploads, monitoring upload progress, and reviewing errors, with real-time information provided for both the import and load stages of upload processing. Fusion HCM provides tools, but it requires additional orchestration such as generating FBL or HDL file, uploading these files to WebCenter Content and initiating FBL or HDL web services. This post describes how to design and automate these steps leveraging Oracle Service Oriented Architecture (SOA) Cloud Service deployed on Oracle’s cloud Platform As a Service (PaaS) infrastructure.  For more information on SOA Cloud Service, please refer to [this](https://docs.oracle.com/cloud/latest/soacs_gs/index.html).
 
-Oracle SOA is the industry’s most complete and unified application integration and SOA solution. It transforms complex application integration into agile and re-usable service-based components to speed time to market, respond faster to business requirements, and lower costs.. SOA facilitates the development of enterprise applications as modular business web services that can be easily integrated and reused, creating a truly flexible, adaptable IT infrastructure. For more information on getting started with Oracle SOA, please refer [this](http://docs.oracle.com/middleware/1213/soasuite/index.html). For developing SOA applications using SOA Suite, please refer to [this](http://docs.oracle.com/middleware/1213/soasuite/develop-soa/soa-standards-architecture.htm#SOASE1444).
+Oracle SOA is the industry’s most complete and unified application integration and SOA solution. It transforms complex application integration into agile and re-usable service-based components to speed time to market, respond faster to business requirements, and lower costs.. SOA facilitates the development of enterprise applications as modular business web services that can be easily integrated and reused, creating a truly flexible, adaptable IT infrastructure. For more information on getting started with Oracle SOA, please refer [this](http://docs.oracle.com/middleware/1213/soasuite/index.html). 
 
 These bulk integration interfaces and patterns are not applicable to Oracle Taleo. 
 
@@ -59,7 +59,7 @@ However, the report must then be delivered to its destination depending on the u
 
 ![](images/hcm_outbound_v1.jpg)
 
-For HCM bulk integration introduction including security, roles and privileges, please refer to my blog Fusion HCM Cloud – [Bulk Integration Automation using Managed File Trasnfer (MFT) and Node.js](http://www.ateam-oracle.com/fusion-hcm-cloud-bulk-integration-automation-using-managed-file-transfer-mft-and-node-js/). For introduction to WebCenter Content Integration services using SOA, please refer to my blog [Fusion HCM Cloud Bulk Automation](http://www.ateam-oracle.com/fusion-hcm-cloud-bulk-integration-automation/).
+For HCM bulk integration introduction including security, roles and privileges, please refer to my blog Fusion HCM Cloud – [Bulk Integration Automation using Managed File Trasnfer (MFT) and Node.js](http://www.ateam-oracle.com/fusion-hcm-cloud-bulk-integration-automation-using-managed-file-transfer-mft-and-node-js/). 
 
 ## Sample Code <a name="SAMPLECODE"></a>
 
@@ -80,7 +80,7 @@ Pre-requisites are
 
 1. *Download and install JDeveloper 12c*
 refer below location for instructions to get Jdeveloper using SOA quickstart. This JDeveloper comes preconfigured with SOA extensions and ready to load and modify the SOA composites provided here.
-	http://www.oracle.com/technetwork/middleware/soasuite/downloads/soa1213qsdownload-2769533.html
+https://www.oracle.com/uk/middleware/technologies/soasuite/downloads.html
 	
 2. Load the composites into JDeveloper 12c
 Create a SOA Application and import the SOA projects WccManager and HcmHDLoader within it.
