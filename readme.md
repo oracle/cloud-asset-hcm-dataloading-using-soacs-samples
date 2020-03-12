@@ -1,21 +1,25 @@
 # Loading Data into Oracle HCM using using SOACS
 
-**Table Of Contents**
+## **Table Of Contents**
 
-[TOC]
+- [Introduction](#Introduction)
+- HCM Data Loader
+- HCM Extracts
+- HCM Inbound Flow 
+- HCM Outbound Flow
+- Sample Code
+- Running the code 
 
 
-
-
-## Introduction
+## Introduction <a name="Introduction"></a>
 
 Oracle Human Capital Management (HCM) Cloud provides a comprehensive set of tools, templates, and pre-packaged integration to cover various scenarios using modern and efficient technologies. One of the patterns is the batch integration to load and extract data to and from the HCM cloud. HCM provides the following bulk integration interfaces and tools:
 
-## HCM Data Loader (HDL)
+## HCM Data Loader (HDL) <a name="HCMDataLoader"></a>
 
 HDL is a powerful tool for bulk-loading data from any source to Oracle Fusion HCM. It supports important business objects belonging to key Oracle Fusion HCM products, including Oracle Fusion Global Human Resources, Compensation, Absence Management, Performance Management, Profile Management, Global Payroll, Talent and Workforce Management. For detailed information on HDL, please refer to [this](https://support.oracle.com/epmos/faces/DocumentDisplay?id=1664133.1).
 
-## HCM Extracts
+## HCM Extracts <a name="HCMExtracts"></a>
 
 HCM Extract is an outbound integration tool that lets you select HCM data elements, extracting them from the HCM database and archiving these data elements as XML. This archived raw XML data can be converted into a desired format and delivered to supported channels recipients.
 
@@ -25,7 +29,7 @@ Oracle SOA is the industry’s most complete and unified application integration
 
 These bulk integration interfaces and patterns are not applicable to Oracle Taleo. 
 
-## HCM Inbound Flow (HDL)
+## HCM Inbound Flow (HDL) <a name="HCMInbound"></a>
 
 Oracle WebCenter Content (WCC) acts as the staging repository for files to be loaded and processed by HDL. WCC is part of the Fusion HCM infrastructure.
 
@@ -42,7 +46,7 @@ The following diagram illustrates the typical orchestration of the end-to-end HD
 
 [![hcm_inbound_v1](http://www.ateam-oracle.com/wp-content/uploads/2015/08/hcm_inbound_v1.jpg)](http://www.ateam-oracle.com/wp-content/uploads/2015/08/hcm_inbound_v1.jpg)
 
-## HCM Outbound Flow (Extract)
+## HCM Outbound Flow (Extract) <a name="EXTRACT"></a>
 
 The “Extract” process for HCM has the following steps:
 
@@ -58,7 +62,7 @@ However, the report must then be delivered to its destination depending on the u
 
 For HCM bulk integration introduction including security, roles and privileges, please refer to my blog Fusion HCM Cloud – [Bulk Integration Automation using Managed File Trasnfer (MFT) and Node.js](http://www.ateam-oracle.com/fusion-hcm-cloud-bulk-integration-automation-using-managed-file-transfer-mft-and-node-js/). For introduction to WebCenter Content Integration services using SOA, please refer to my blog [Fusion HCM Cloud Bulk Automation](http://www.ateam-oracle.com/fusion-hcm-cloud-bulk-integration-automation/).
 
-## Sample Code
+## Sample Code <a name="SAMPLECODE"></a>
 
 This sample contains two sample SOA Composites out of the overall solution to integrate with HCM using SOACS.
 	Refer to the complete solution from this location - https://docs.oracle.com/en/solutions/data-load-extract-hcm-cloud/index.html
@@ -73,7 +77,7 @@ Pre-requisites are
 - A fully configured Oracle Fusion HCM environment, release 12 or higher
 - Oracle SOA Suite Cloud Service environment 12.x or higher
 
-## To deploy and run the code
+## To deploy and run the code <a name="RUNCODE"></a>
 
 1. *Download and install JDeveloper 12c*
 refer below location for instructions to get Jdeveloper using SOA quickstart. This JDeveloper comes preconfigured with SOA extensions and ready to load and modify the SOA composites provided here.
